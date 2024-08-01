@@ -3,19 +3,18 @@ import React, { useState, useEffect } from 'react';
 import EventCard from './EventCard';
 import EventList from './EventList';
 import SelectedEventsList from './SelectedEventsList';
+import Popup from './Popup';
 import './App.css';
-
-// // Sample events data
-// const initialEvents = [
-//   { id: 1, name: 'Event 1', category: 'Category A', timings: '10:00 - 11:00' },
-//   { id: 2, name: 'Event 2', category: 'Category B', timings: '11:00 - 12:00' },
-//   // Add more events as needed
-// ];
 
 const App = () => {
   const [events, setEvents] = useState([]);
+  const [selectedEvents, setSelectedEvents] = useState(() => {
+    const savedSelectedEvents = localStorage.getItem('selectedEvents');
+    return savedSelectedEvents ? JSON.parse(savedSelectedEvents) : [];
+  });
+  const [popup, setPopup] = useState({ visible: false, message: '' });
+
   useEffect(() => {
-    // Fetch the JSON file from the public folder
     fetch('./client.json')
       .then(response => {
         if (!response.ok) {
@@ -23,42 +22,28 @@ const App = () => {
         }
         return response.json();
       })
-      .then(data => {
-        setEvents(data); // Update state with the fetched data
-      })
-      .catch(error => {
-        console.error('There was a problem with the fetch operation:', error);
-      });
-  }, []); // Empty dependency array ensures this runs only once, after initial render
-  const [selectedEvents, setSelectedEvents] = useState(() => {
-    const savedSelectedEvents = localStorage.getItem('selectedEvents');
-    return savedSelectedEvents ? JSON.parse(savedSelectedEvents) : [];
-  });
+      .then(data => setEvents(data))
+      .catch(error => console.error('There was a problem with the fetch operation:', error));
+  }, []);
+
   const isConflict = (event1, event2) => {
-    
+    // Adjust this function according to your time format
     return event1.start_time < event2.end_time && event1.end_time > event2.start_time;
   };
-  // Utility function to check if two events conflict
-// const isConflict = (event1, event2) => {
-//   const [start1, end1] = event1.timings.split(' - ').map(parseTime);
-//   const [start2, end2] = event2.timings.split(' - ').map(parseTime);
-//   return start1 < end2 && start2 < end1;
-// };
 
   const handleSelect = (event) => {
-  
     setSelectedEvents(prevSelected => {
       if (selectedEvents.length >= 3) {
-        alert('You can only select up to 3 events...');
-        return;
+        setPopup({ visible: true, message: 'You can only select up to 3 events...' });
+        return prevSelected;
       }
       for (const selectedEvent of selectedEvents) {
         if (isConflict(selectedEvent, event)) {
-          alert('This event conflicts with an already selected event...');
-          return;
+          setPopup({ visible: true, message: 'This event conflicts with an already selected event...' });
+          return prevSelected;
         }
       }
-  
+
       const updatedSelected = [...prevSelected, event];
       localStorage.setItem('selectedEvents', JSON.stringify(updatedSelected));
       return updatedSelected;
@@ -73,8 +58,13 @@ const App = () => {
     });
   };
 
+  const handleClosePopup = () => {
+    setPopup({ visible: false, message: '' });
+  };
+
   return (
     <div className="app">
+      {popup.visible && <Popup message={popup.message} onClose={handleClosePopup} />}
       <div className="event-section">
         <h2>Events</h2>
         <EventList

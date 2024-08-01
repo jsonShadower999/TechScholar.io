@@ -1,0 +1,63 @@
+/* Style for the event list container */
+.event-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px; /* Space between event cards */
+    padding: 18px; /* Padding around the event list */
+    max-width: 1200px; /* Max width of the list */
+    margin: 0 auto; /* Center the list horizontally */
+    background-color: #f9f9f9; /* Light background color */
+  }
+  
+  /* Add some styles to each event card */
+  .event-card {
+    border: 1px solid #ddd; /* Light border around cards */
+    border-radius: 8px; /* Rounded corners */
+    padding: 16px; /* Padding inside cards */
+    background-color: #fff; /* White background for cards */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for cards */
+    transition: transform 0.2s ease, box-shadow 0.2s ease; /* Smooth transition for hover effects */
+  }
+  
+  .event-card:hover {
+    transform: translateY(-4px); /* Lift card up slightly on hover */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Enhance shadow on hover */
+  }
+  
+  /* Style for selected event cards */
+  .event-card.selected {
+    border-color: #007bff; /* Blue border for selected cards */
+    background-color: #e7f1ff; /* Light blue background for selected cards */
+  }
+  
+  /* Additional styling for card contents */
+  .event-card .event-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 8px;
+  }
+  
+  .event-card .event-description {
+    font-size: 14px;
+    color: #555;
+  }
+  
+  .event-card .event-actions {
+    margin-top: 16px;
+    text-align: right;
+  }
+  
+  .event-card .event-actions button {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    background-color: #007bff; /* Button background color */
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+  
+  .event-card .event-actions button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+  }
+  

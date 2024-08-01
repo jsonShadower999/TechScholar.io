@@ -1,0 +1,58 @@
+/* Style for individual event cards */
+.event-card {
+    border: 1px solid #ddd; /* Light border around cards */
+    border-radius: 8px; /* Rounded corners */
+    padding: 16px; /* Padding inside cards */
+    background-color: #fff; /* White background for cards */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for cards */
+    transition: transform 0.2s ease, box-shadow 0.2s ease; /* Smooth transition for hover effects */
+    margin: 8px; /* Space between cards */
+  }
+  
+  .event-card:hover {
+    transform: translateY(-4px); /* Lift card up slightly on hover */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Enhance shadow on hover */
+  }
+  
+  .event-card h3 {
+    margin: 0; /* Remove default margin */
+    font-size: 20px; /* Font size for the event name */
+    color: #333; /* Dark text color for better readability */
+  }
+  
+  .event-card p {
+    margin: 8px 0; /* Space between paragraphs */
+    color: #666; /* Lighter text color */
+    font-size: 14px; /* Font size for event details */
+  }
+  
+  .event-card .event-actions {
+    margin-top: 16px; /* Space above action buttons */
+    text-align: right; /* Align buttons to the right */
+  }
+  
+  .event-card .event-actions button {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    background-color: #007bff; /* Button background color */
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    font-size: 14px; /* Font size for button text */
+  }
+  
+  .event-card .event-actions button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+  }
+  
+  /* Style for the event timings block */
+  .event-card .event-timings {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .event-card .event-timings p {
+    margin: 4px 0; /* Space between timing paragraphs */
+  }
+  
